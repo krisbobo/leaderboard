@@ -1,3 +1,80 @@
-body {
-    background-color: bisque;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --flex: flex;
+  --black: black;
+}
+
+h1 {
+  padding: 20px;
+  margin: 40px auto;
+  margin-left: 80px;
+  font-size: 35px;
+}
+
+.main-container {
+  display: var(--flex);
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.container1 {
+  display: var(--flex);
+  flex-direction: column;
+}
+
+.scores {
+  display: var(--flex);
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.refresh-btn {
+  padding: 3px;
+}
+
+.added-scores {
+  border: 1px solid var(--black);
+}
+
+.added-scores li {
+  list-style: none;
+  padding: 3px;
+}
+
+.added-scores li:nth-child(even) {
+  background: rgba(197, 194, 194, 0.618);
+}
+
+.container2,
+#form {
+  display: var(--flex);
+  flex-direction: column;
+}
+
+h2 {
+  padding: 10px;
+  margin: 15px auto;
+  font-size: 25px;
+}
+
+#form input {
+  margin: 8px auto;
+  width: 100%;
+}
+
+input[placeholder] {
+  padding: 5px;
+}
+
+.form-btn {
+  margin-top: 2px;
+  width: fit-content;
+  padding: 3px;
+  align-self: flex-end;
 }
