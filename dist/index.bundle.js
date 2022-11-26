@@ -115,7 +115,27 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n//# sourceURL=webpack://webpack/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_new_game__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/new_game */ \"./src/modules/new_game.js\");\n/* harmony import */ var _modules_send_result__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/send_result */ \"./src/modules/send_result.js\");\n\n\n\n\nconst refreshBtn = document.querySelector('.refresh-btn');\nconst form = document.querySelector('#form');\n\nrefreshBtn.addEventListener('click', (e) => {\n  e.preventDefault();\n  _modules_new_game__WEBPACK_IMPORTED_MODULE_1__.freshGame.populateList();\n});\n\nform.addEventListener('submit', (e) => {\n  e.preventDefault();\n  (0,_modules_send_result__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n});\n\nwindow.onload = (e) => {\n  e.preventDefault();\n  _modules_new_game__WEBPACK_IMPORTED_MODULE_1__.freshGame.populateList();\n};\n\n//# sourceURL=webpack://webpack/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/modules/new_game.js":
+/*!*********************************!*\
+  !*** ./src/modules/new_game.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Game),\n/* harmony export */   \"freshGame\": () => (/* binding */ freshGame)\n/* harmony export */ });\n// ======== Get players from the api ============\nclass Game {\n    populate = async () => {\n      const requestURL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/VdccZg4ehGmA0ER5EhxA/scores/';\n      const response = await fetch(requestURL);\n      const game = await response.json();\n      return game;\n    }\n\n    populateList = async () => {\n      const players = await this.populate();\n      const list = document.querySelector('.added-scores');\n      list.innerHTML = '';\n      players.result.forEach((player) => {\n        const listItems = document.createElement('li');\n        listItems.textContent = `${player.user}: ${player.score}`;\n        list.appendChild(listItems);\n      });\n    }\n}\n\nconst freshGame = new Game();\n\n//# sourceURL=webpack://webpack/./src/modules/new_game.js?");
+
+/***/ }),
+
+/***/ "./src/modules/send_result.js":
+/*!************************************!*\
+  !*** ./src/modules/send_result.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _new_game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./new_game */ \"./src/modules/new_game.js\");\n\n\nconst requestURL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/VdccZg4ehGmA0ER5EhxA/scores/';\nconst name = document.querySelector('#username');\nconst scoreInput = document.querySelector('#score');\n\nconst sendResult = async () => {\n  const result = await fetch(\n    requestURL,\n    {\n      method: 'POST',\n      headers: {\n        'Content-type': 'application/json; charset=UTF-8',\n      },\n      body: JSON.stringify({\n        user: name.value,\n        score: scoreInput.value,\n      }),\n    },\n  );\n  name.value = '';\n  scoreInput.value = '';\n  _new_game__WEBPACK_IMPORTED_MODULE_0__.freshGame.populateList();\n  return result.json();\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sendResult);\n\n//# sourceURL=webpack://webpack/./src/modules/send_result.js?");
 
 /***/ })
 
